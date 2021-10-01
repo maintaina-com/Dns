@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_DNS</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Domain Name System library</summary>
+ <description>Libraries for configuring DNS servers</description>
+ <lead>
+  <name>Ralf Lang</name>
+  <user>rlang</user>
+  <email>lang@b1-systems.de</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Diana Hille</name>
+  <user>hille</user>
+  <email>hille@b1-systems.de</email>
+  <active>yes</active>
+ </lead>
+ <date>2019-12-02</date>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+ <notes>
+* 
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="DNS">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/DNS -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="DNS">
+      <dir name="Backend">
+       <dir name="Rdo">
+        <file name="RecordEntity.php" role="php" />
+        <file name="RecordMapper.php" role="php" />
+        <file name="ZoneEntity.php" role="php" />
+        <file name="ZoneMapper.php" role="php" />
+       </dir> <!-- /lib/Horde/DNS/Backend/Rdo -->
+       <file name="Bind9.php" role="php" />
+       <file name="Mock.php" role="php" />
+       <file name="Rdo.php" role="php" />
+       <file name="Route53.php" role="php" />
+      </dir> <!-- /lib/Horde/DNS/Backend -->
+      <dir name="Changeset">
+       <file name="Entity.php" role="php" />
+       <file name="Manager.php" role="php" />
+       <file name="Mapper.php" role="php" />
+      </dir> <!-- /lib/Horde/DNS/Changeset -->
+      <dir name="Factory">
+       <file name="Lock.php" role="php" />
+       <file name="Manager.php" role="php" />
+       <file name="Mapper.php" role="php" />
+      </dir> <!-- /lib/Horde/DNS/Factory -->
+      <dir name="Record">
+       <file name="Entity.php" role="php" />
+       <file name="Manager.php" role="php" />
+       <file name="Mapper.php" role="php" />
+       <file name="Mock.php" role="php" />
+      </dir> <!-- /lib/Horde/DNS/Record -->
+      <dir name="Zone">
+       <file name="Entity.php" role="php" />
+       <file name="Manager.php" role="php" />
+       <file name="Mapper.php" role="php" />
+       <file name="Mock.php" role="php" />
+      </dir> <!-- /lib/Horde/DNS/Zone -->
+      <file name="Backend.php" role="php" />
+      <file name="Manager.php" role="php" />
+      <file name="Record.php" role="php" />
+      <file name="Zone.php" role="php" />
+     </dir> <!-- /lib/Horde/DNS -->
+     <file name="DNS.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="migration">
+    <dir name="Horde">
+     <dir name="DNS">
+      <file name="1_horde_dns_table.php" role="data" />
+     </dir> <!-- /migration/Horde/DNS -->
+    </dir> <!-- /migration/Horde -->
+   </dir> <!-- /migration -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="DNS">
+      <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="RecordRdoTest.php" role="test" />
+     </dir> <!-- /test/Horde/DNS -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="COPYING" name="doc/Horde/DNS/COPYING" />
+   <install as="Horde/DNS.php" name="lib/Horde/DNS.php" />
+   <install as="Horde/DNS/Backend.php" name="lib/Horde/DNS/Backend.php" />
+   <install as="Horde/DNS/Backend/Bind9.php" name="lib/Horde/DNS/Backend/Bind9.php" />
+   <install as="Horde/DNS/Backend/Mock.php" name="lib/Horde/DNS/Backend/Mock.php" />
+   <install as="Horde/DNS/Backend/Rdo.php" name="lib/Horde/DNS/Backend/Rdo.php" />
+   <install as="Horde/DNS/Backend/Rdo/RecordEntity.php" name="lib/Horde/DNS/Backend/Rdo/RecordEntity.php" />
+   <install as="Horde/DNS/Backend/Rdo/RecordMapper.php" name="lib/Horde/DNS/Backend/Rdo/RecordMapper.php" />
+   <install as="Horde/DNS/Backend/Rdo/ZoneEntity.php" name="lib/Horde/DNS/Backend/Rdo/ZoneEntity.php" />
+   <install as="Horde/DNS/Backend/Rdo/ZoneMapper.php" name="lib/Horde/DNS/Backend/Rdo/ZoneMapper.php" />
+   <install as="Horde/DNS/Backend/Route53.php" name="lib/Horde/DNS/Backend/Route53.php" />
+   <install as="Horde/DNS/Changeset/Entity.php" name="lib/Horde/DNS/Changeset/Entity.php" />
+   <install as="Horde/DNS/Changeset/Manager.php" name="lib/Horde/DNS/Changeset/Manager.php" />
+   <install as="Horde/DNS/Changeset/Mapper.php" name="lib/Horde/DNS/Changeset/Mapper.php" />
+   <install as="Horde/DNS/Factory/Lock.php" name="lib/Horde/DNS/Factory/Lock.php" />
+   <install as="Horde/DNS/Factory/Manager.php" name="lib/Horde/DNS/Factory/Manager.php" />
+   <install as="Horde/DNS/Factory/Mapper.php" name="lib/Horde/DNS/Factory/Mapper.php" />
+   <install as="Horde/DNS/Manager.php" name="lib/Horde/DNS/Manager.php" />
+   <install as="Horde/DNS/Record.php" name="lib/Horde/DNS/Record.php" />
+   <install as="Horde/DNS/Record/Entity.php" name="lib/Horde/DNS/Record/Entity.php" />
+   <install as="Horde/DNS/Record/Manager.php" name="lib/Horde/DNS/Record/Manager.php" />
+   <install as="Horde/DNS/Record/Mapper.php" name="lib/Horde/DNS/Record/Mapper.php" />
+   <install as="Horde/DNS/Record/Mock.php" name="lib/Horde/DNS/Record/Mock.php" />
+   <install as="Horde/DNS/Zone.php" name="lib/Horde/DNS/Zone.php" />
+   <install as="Horde/DNS/Zone/Entity.php" name="lib/Horde/DNS/Zone/Entity.php" />
+   <install as="Horde/DNS/Zone/Manager.php" name="lib/Horde/DNS/Zone/Manager.php" />
+   <install as="Horde/DNS/Zone/Mapper.php" name="lib/Horde/DNS/Zone/Mapper.php" />
+   <install as="Horde/DNS/Zone/Mock.php" name="lib/Horde/DNS/Zone/Mock.php" />
+   <install as="migration/1_horde_dns_table.php" name="migration/Horde/DNS/1_horde_dns_table.php" />
+   <install as="Horde/DNS/AllTests.php" name="test/Horde/DNS/AllTests.php" />
+   <install as="Horde/DNS/bootstrap.php" name="test/Horde/DNS/bootstrap.php" />
+   <install as="Horde/DNS/phpunit.xml" name="test/Horde/DNS/phpunit.xml" />
+   <install as="Horde/DNS/RecordRdoTest.php" name="test/Horde/DNS/RecordRdoTest.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2019-12-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
+   </notes>
+  </release>
+ </changelog>
+</package>

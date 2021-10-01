@@ -1,0 +1,46 @@
+{
+    "name": "horde/dns",
+    "description": "Horde Domain Name System library",
+    "type": "horde-library",
+    "homepage": "https://www.horde.org",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Ralf Lang",
+            "email": "lang@b1-systems.de",
+            "role": "lead"
+        },
+        {
+            "name": "Diana Hille",
+            "email": "hille@b1-systems.de",
+            "role": "lead"
+        }
+    ],
+    "version": "1.0.0alpha1",
+    "time": "2019-12-02",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://horde-satis.maintaina.com"
+        }
+    ],
+    "require": {
+        "horde/horde-installer-plugin": "dev-master || dev-FRAMEWORK_6_0 || ^1",
+        "php": "^5.3 || ^7",
+        "horde/rdo": "dev-master | dev-FRAMEWORK_6_0 || ^3",
+        "aws/aws-sdk-php": "^3.183"
+    },
+    "require-dev": {
+        "horde/test": "dev-master | dev-FRAMEWORK_6_0 || ^3"
+    },
+    "suggest": {},
+    "autoload": {
+        "psr-0": {
+            "Horde_DNS": "lib/"
+        },
+        "psr-4": {
+            "Horde\\Dns\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
