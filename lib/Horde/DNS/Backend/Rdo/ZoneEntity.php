@@ -19,7 +19,7 @@ class Horde_DNS_Backend_Rdo_ZoneEntity extends Horde_Rdo_Base
      *
      * @return array The array of all class properties
      */
-    public function toArray()
+    public function toArray($lazy = false, $relationships = false)
     {
         return array(
             'zone_id'    => $this->zone_id,

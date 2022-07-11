@@ -15,7 +15,7 @@
  */
 class Horde_DNS_Record_Entity extends Horde_Rdo_Base
 {
-    public function toArray()
+    public function toArray($lazy = false, $relationships = false)
     {
         return array(
             'record_id'        => $this->record_id,
