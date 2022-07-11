@@ -1,13 +1,13 @@
 <?php
 
-namespace Horde\Dns\AwsRoute53Test;
+namespace Horde\Dns\Test\AwsRoute53Test;
 
 use Aws\Route53\Route53Client;
 use Aws\Result as AwsResult;
 
 use Horde\Dns\AwsRoute53;
 use Horde\Dns\RecordPlain;
-use Horde\Dns\TestBase;
+use Horde\Dns\Test\TestBase;
 
 class UpdateRecordTest extends TestBase
 {
@@ -45,7 +45,7 @@ class UpdateRecordTest extends TestBase
         ];
         $recordSet = $fakeAwsRoute53Api->getRecordSet($params);
         $fakeAwsRoute53Api->insertRecordSet($zoneId, $recordSet);
-        
+
         $params["value"] = "recordValue5";
         $recordSet = $fakeAwsRoute53Api->getRecordSet($params);
         $client = new AwsRoute53($fakeAwsRoute53Api);

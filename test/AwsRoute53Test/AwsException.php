@@ -1,6 +1,6 @@
 <?php
 
-namespace Horde\Dns\AwsRoute53Test;
+namespace Horde\Dns\Test\AwsRoute53Test;
 
 use Aws\Exception\AwsException as AwsE;
 use Aws\Command;

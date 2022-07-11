@@ -1,6 +1,9 @@
 <?php
 
-namespace Horde\Dns;
+namespace Horde\Dns\Test;
+
+use Horde\Dns\ZonePlain;
+use Horde\Dns\RecordPlain;
 
 class RecordPlainTest extends TestBase
 {
@@ -27,7 +30,7 @@ class RecordPlainTest extends TestBase
         $expected = "test23423423";
         $record = $this->getRecord(["name" => $expected]);
         $actual = $record->getName();
-        
+
         $this->assertEquals($expected, $actual);
     }
 
@@ -37,7 +40,7 @@ class RecordPlainTest extends TestBase
         $record = $this->getRecord(["type" => $expected]);
 
         $actual = $record->getType();
-        
+
         $this->assertEquals($expected, $actual);
     }
 
@@ -46,7 +49,7 @@ class RecordPlainTest extends TestBase
         $expected = 434;
         $record = $this->getRecord(["ttl" => $expected]);
         $actual = $record->getTtl();
-        
+
         $this->assertEquals($expected, $actual);
     }
 
@@ -55,7 +58,7 @@ class RecordPlainTest extends TestBase
         $expected = "test54654353";
         $record = $this->getRecord(["value" => $expected]);
         $actual = $record->getValue();
-        
+
         $this->assertEquals($expected, $actual);
     }
 
@@ -64,7 +67,7 @@ class RecordPlainTest extends TestBase
         $expected = "test7676856";
         $record = $this->getRecord(["comment" => $expected]);
         $actual = $record->getComment();
-        
+
         $this->assertEquals($expected, $actual);
     }
 }

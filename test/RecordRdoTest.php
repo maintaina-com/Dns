@@ -15,10 +15,10 @@
  * @package horde-dns
  */
 
-namespace Horde\Dns;
+namespace Horde\Dns\Test;
 
-use \Horde_DNS_Zone;
-use \Horde_DNS_Record;
+use Horde_DNS_Zone;
+use Horde_DNS_Record;
 
 class RecordRdoTest extends TestBase
 {

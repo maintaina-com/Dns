@@ -1,8 +1,12 @@
 <?php
 
-namespace Horde\Dns;
+namespace Horde\Dns\Test;
 
-use \ForeachIterator;
+use Horde\Dns\Client;
+use Horde\Dns\Composite;
+use Horde\Dns\Db\Zone;
+use Horde\Dns\ZonePlain;
+use Horde\Dns\RecordPlain;
 
 class CompositeTest extends TestBase
 {
@@ -39,12 +43,12 @@ class CompositeTest extends TestBase
             if ($i % 2 > 0) {
                 $zone = $this->createMock(Zone::class);
                 $zone->method('getId')
-                ->willReturn("".$i);
+                    ->willReturn("" . $i);
                 $client->method('getZone')
-                ->willReturn($zone);
+                    ->willReturn($zone);
             } else {
                 $client->method('getZone')
-                ->willReturn(null);
+                    ->willReturn(null);
             }
             $clients[] = $client;
         }
@@ -293,7 +297,7 @@ class CompositeTest extends TestBase
         $comp = new Composite($clients);
         $zoneRecord = $comp->createRecord(...$params);
 
-        $this->assertEquals($num-1, $reachedClient);
+        $this->assertEquals($num - 1, $reachedClient);
     }
 
     public function testCreateRecordPassesArgumentsUnchanged()
@@ -389,7 +393,7 @@ class CompositeTest extends TestBase
         $comp = new Composite($clients);
         $zoneRecord = $comp->deleteRecord(...$params);
 
-        $this->assertEquals($num-1, $reachedClient);
+        $this->assertEquals($num - 1, $reachedClient);
     }
 
     public function testDeleteRecordPassesArgumentsUnchanged()
@@ -487,7 +491,7 @@ class CompositeTest extends TestBase
         $comp = new Composite($clients);
         $zoneRecord = $comp->updateRecord(...$params);
 
-        $this->assertEquals($num-1, $reachedClient);
+        $this->assertEquals($num - 1, $reachedClient);
     }
 
     public function testUpdateRecordPassesArgumentsUnchanged()

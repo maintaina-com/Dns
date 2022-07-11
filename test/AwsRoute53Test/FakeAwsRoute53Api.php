@@ -1,6 +1,6 @@
 <?php
 
-namespace Horde\Dns\AwsRoute53Test;
+namespace Horde\Dns\Test\AwsRoute53Test;
 
 use Aws\Route53\Route53Client;
 use Aws\Result as AwsResult;
@@ -91,7 +91,7 @@ class FakeAwsRoute53Api extends Route53Client
         }
         $recordSets = &$this->getRecordSets($zoneId);
         $currentRecordSetsInZone = count($recordSets);
-        for ($i = $currentRecordSetsInZone; $i < $amount+$currentRecordSetsInZone; $i++) {
+        for ($i = $currentRecordSetsInZone; $i < $amount + $currentRecordSetsInZone; $i++) {
             $recordSets[] = $this->getRecordSet([], $i);
         }
         usort($recordSets, function ($a, $b) {
@@ -112,7 +112,7 @@ class FakeAwsRoute53Api extends Route53Client
                 break;
             }
         }
-        if (count($recordSets) === $idx+1) {
+        if (count($recordSets) === $idx + 1) {
             $recordSets[] = $recordSet;
         }
     }
@@ -156,18 +156,18 @@ class FakeAwsRoute53Api extends Route53Client
     public function getRecordSet($params = [], $idx = 0)
     {
         return [
-            "Name" => $params["name"] ?? "recordName_".$idx,
-            "Type" => $params["type"] ?? "recordType_".$idx,
-            "SetIdentifier" => $params["setId"] ?? "recordSetId_".$idx,
-            "Weight" => $params["weight"] ?? "recordWeight_".$idx,
-            "Region" => $params["region"] ?? "recordRegion_".$idx,
+            "Name" => $params["name"] ?? "recordName_" . $idx,
+            "Type" => $params["type"] ?? "recordType_" . $idx,
+            "SetIdentifier" => $params["setId"] ?? "recordSetId_" . $idx,
+            "Weight" => $params["weight"] ?? "recordWeight_" . $idx,
+            "Region" => $params["region"] ?? "recordRegion_" . $idx,
             "GeoLocation" => [
-                "ContinentCode" => $params["continentCode"] ?? "recordContinentCode_".$idx,
-                "CountryCode" => $params["countryCode"] ?? "recordCountryCode_".$idx,
+                "ContinentCode" => $params["continentCode"] ?? "recordContinentCode_" . $idx,
+                "CountryCode" => $params["countryCode"] ?? "recordCountryCode_" . $idx,
             ],
             "ResourceRecords" => [
                 [
-                    "Value" => $params["value"] ?? "recordValue_".$idx,
+                    "Value" => $params["value"] ?? "recordValue_" . $idx,
                 ]
             ],
             "TTL" => $params["ttl"] ?? $idx,
@@ -184,7 +184,7 @@ class FakeAwsRoute53Api extends Route53Client
 
         $startRecordName = $params["StartRecordName"] ?? null;
         $startRecordType = $params["StartRecordType"] ?? null;
-        
+
         if (!is_null($startRecordName)) {
             for (; $idx < $recordsSetsTotal; $idx++) {
                 $recordSet = $recordSets[$idx];
@@ -251,7 +251,7 @@ class FakeAwsRoute53Api extends Route53Client
             "ttl" => $ttl,
             "value" => $value,
         ];
-        
+
         $recordSet = $this->getRecordSet($params);
 
         if ($action === "CREATE") {

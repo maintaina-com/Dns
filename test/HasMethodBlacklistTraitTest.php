@@ -1,6 +1,8 @@
 <?php
 
-namespace Horde\Dns;
+namespace Horde\Dns\Test;
+
+use Horde\Dns\HasMethodBlacklistTrait;
 
 class HasMethodBlacklistTraitTest extends TestBase
 {

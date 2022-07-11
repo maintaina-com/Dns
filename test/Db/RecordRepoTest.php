@@ -1,8 +1,10 @@
 <?php
 
-namespace Horde\Dns\Db;
+namespace Horde\Dns\Test\Db;
 
-use Horde\Dns\TestBase;
+use Horde\Dns\Test\TestBase;
+
+use Horde\Dns\Db\RecordRepo;
 
 class RecordRepoTest extends TestBase
 {

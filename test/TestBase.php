@@ -1,6 +1,6 @@
 <?php
 
-namespace Horde\Dns;
+namespace Horde\Dns\Test;
 
 use PHPUnit\Framework\TestCase;
 

@@ -1,9 +1,8 @@
 <?php
 
-namespace Horde\Dns;
+namespace Horde\Dns\Test;
 
-// use Horde\Dns\Client;
-use \ForeachIterator;
+use Horde\Dns\Client;
 
 class ClientTest extends TestBase
 {
@@ -11,7 +10,7 @@ class ClientTest extends TestBase
     {
         $stub = $this->createMock(Client::class);
         $stub->method('getDefaultZoneId')
-                ->willReturn('ZoneId');
+            ->willReturn('ZoneId');
 
         $actual = $stub->getDefaultZoneId();
         $expected = 'ZoneId';
@@ -22,8 +21,8 @@ class ClientTest extends TestBase
     public function testGetZoneReturnsNull()
     {
         $stub = $this->getMockBuilder(Client::class)
-                        ->disableOriginalConstructor()
-                        ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         $actual = $stub->getZone();
 
         $expected = null;
@@ -34,8 +33,8 @@ class ClientTest extends TestBase
     public function testGetZoneRecordsIsIterable()
     {
         $stub = $this->getMockBuilder(Client::class)
-                        ->disableOriginalConstructor()
-                        ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         $actual = $stub->getZoneRecords();
         $actual = is_iterable($actual);
 

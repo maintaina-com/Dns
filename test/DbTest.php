@@ -1,12 +1,13 @@
 <?php
 
-namespace Horde\Dns;
+namespace Horde\Dns\Test;
 
 use Horde\Dns\Db\ZoneRepo;
 use Horde\Dns\Db\RecordRepo;
 use Horde\Dns\Db\Record as DbRecord;
-
-use \ForeachIterator;
+use Horde\Dns\Db;
+use Horde\Dns\ZonePlain;
+use Horde\Dns\RecordPlain;
 
 class DbTest extends TestBase
 {

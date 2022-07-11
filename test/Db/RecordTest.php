@@ -1,8 +1,10 @@
 <?php
 
-namespace Horde\Dns\Db;
+namespace Horde\Dns\Test\Db;
 
-use Horde\Dns\TestBase;
+use Horde\Dns\Test\TestBase;
+
+use Horde\Dns\Db\Record;
 
 class RecordTest extends TestBase
 {
@@ -22,7 +24,7 @@ class RecordTest extends TestBase
         $expected = "test23423423";
         $record = $this->getRecord(["name" => $expected]);
         $actual = $record->getName();
-        
+
         $this->assertEquals($expected, $actual);
     }
 
@@ -32,7 +34,7 @@ class RecordTest extends TestBase
         $record = $this->getRecord(["type" => $expected]);
 
         $actual = $record->getType();
-        
+
         $this->assertEquals($expected, $actual);
     }
 
@@ -41,7 +43,7 @@ class RecordTest extends TestBase
         $expected = 434;
         $record = $this->getRecord(["ttl" => $expected]);
         $actual = $record->getTtl();
-        
+
         $this->assertEquals($expected, $actual);
     }
 
@@ -50,7 +52,7 @@ class RecordTest extends TestBase
         $expected = "test54654353";
         $record = $this->getRecord(["rdata" => $expected]);
         $actual = $record->getValue();
-        
+
         $this->assertEquals($expected, $actual);
     }
 
@@ -59,7 +61,7 @@ class RecordTest extends TestBase
         $expected = "";
         $record = $this->getRecord(["comment" => $expected]);
         $actual = $record->getComment();
-        
+
         $this->assertEquals($expected, $actual);
     }
 }

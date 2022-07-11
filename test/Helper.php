@@ -1,8 +1,9 @@
 <?php
 
-namespace Horde\Dns;
+namespace Horde\Dns\Test;
 
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 class Helper extends TestCase
 {
@@ -17,7 +18,7 @@ class Helper extends TestCase
      */
     public function invokeMethod(&$object, $methodName, array $parameters = array())
     {
-        $reflection = new \ReflectionClass(get_class($object));
+        $reflection = new ReflectionClass(get_class($object));
         $method = $reflection->getMethod($methodName);
         $method->setAccessible(true);
 

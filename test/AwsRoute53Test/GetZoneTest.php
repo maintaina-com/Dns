@@ -1,12 +1,12 @@
 <?php
 
-namespace Horde\Dns\AwsRoute53Test;
+namespace Horde\Dns\Test\AwsRoute53Test;
 
 use Aws\Route53\Route53Client;
 use Aws\Result as AwsResult;
 
 use Horde\Dns\AwsRoute53;
-use Horde\Dns\TestBase;
+use Horde\Dns\Test\TestBase;
 
 class GetZoneTest extends TestBase
 {

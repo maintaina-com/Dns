@@ -1,13 +1,13 @@
 <?php
 
-namespace Horde\Dns\AwsRoute53Test;
+namespace Horde\Dns\Test\AwsRoute53Test;
 
 use Aws\Route53\Route53Client;
 use Aws\Result as AwsResult;
 
 use Horde\Dns\AwsRoute53;
 use Horde\Dns\RecordPlain;
-use Horde\Dns\TestBase;
+use Horde\Dns\Test\TestBase;
 
 class GetSingleRecordTest extends TestBase
 {
@@ -21,7 +21,7 @@ class GetSingleRecordTest extends TestBase
         $client = new AwsRoute53($fakeAwsRoute53Api);
         $ret = $client->getSingleRecord("recordName_" . $i, $zoneId);
 
-        $expected = new RecordPlain("recordName_".$i, "recordType_".$i, $i, "recordValue_".$i);
+        $expected = new RecordPlain("recordName_" . $i, "recordType_" . $i, $i, "recordValue_" . $i);
         $this->assertEquals($expected, $ret);
     }
 
@@ -35,7 +35,7 @@ class GetSingleRecordTest extends TestBase
         $client = new AwsRoute53($fakeAwsRoute53Api, ["defaultZoneId" => $zoneId]);
         $ret = $client->getSingleRecord("recordName_" . $i);
 
-        $expected = new RecordPlain("recordName_".$i, "recordType_".$i, $i, "recordValue_".$i);
+        $expected = new RecordPlain("recordName_" . $i, "recordType_" . $i, $i, "recordValue_" . $i);
         $this->assertEquals($expected, $ret);
     }
 
@@ -49,7 +49,7 @@ class GetSingleRecordTest extends TestBase
         $client = new AwsRoute53($fakeAwsRoute53Api);
         $ret = $client->getSingleRecord("recordName_" . $i, $zoneId);
 
-        $expected = new RecordPlain("recordName_".$i, "recordType_".$i, $i, "recordValue_".$i);
+        $expected = new RecordPlain("recordName_" . $i, "recordType_" . $i, $i, "recordValue_" . $i);
         $this->assertEquals($expected, $ret);
     }
 

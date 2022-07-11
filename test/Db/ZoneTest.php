@@ -1,47 +1,49 @@
 <?php
 
-namespace Horde\Dns;
+namespace Horde\Dns\Test\Db;
 
-class ZonePlainTest extends TestBase
+use Horde\Dns\Test\TestBase;
+
+use Horde\Dns\Db\Zone;
+
+class ZoneTest extends TestBase
 {
     private function getZone($updates)
     {
+        // this is a bit complicated because in Horde\Dns\Db\Zone the 'id' maps to 'name' and the 'name' maps to 'domain'
         $params = [
-            "id" => "zoneId",
-            "name" => "zoneName",
+            "name" => "zoneId",
+            "domain" => "zoneName",
             "comment" => "zoneComment",
         ];
         $updated = array_merge($params, $updates);
-        return new ZonePlain(
-            $updated["id"],
-            $updated["name"],
-            $updated["comment"]
-        );
+        return new Zone($updated);
     }
+
     public function testGetName()
     {
         $expected = "test23423423";
-        $zone = $this->getZone(["name" => $expected]);
+        $zone = $this->getZone(["domain" => $expected]);
         $actual = $zone->getName();
-        
+
         $this->assertEquals($expected, $actual);
     }
 
     public function testGetId()
     {
         $expected = "test8673423";
-        $zone = $this->getZone(["id" => $expected]);
+        $zone = $this->getZone(["name" => $expected]);
         $actual = $zone->getId();
-        
+
         $this->assertEquals($expected, $actual);
     }
 
     public function testGetComment()
     {
-        $expected = "test7676856";
+        $expected = "";
         $zone = $this->getZone(["comment" => $expected]);
         $actual = $zone->getComment();
-        
+
         $this->assertEquals($expected, $actual);
     }
 }

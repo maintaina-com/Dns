@@ -1,13 +1,13 @@
 <?php
 
-namespace Horde\Dns\AwsRoute53Test;
+namespace Horde\Dns\Test\AwsRoute53Test;
 
 use Aws\Route53\Route53Client;
 use Aws\Result as AwsResult;
 
 use Horde\Dns\AwsRoute53;
 use Horde\Dns\RecordPlain;
-use Horde\Dns\TestBase;
+use Horde\Dns\Test\TestBase;
 
 class DeleteRecordTest extends TestBase
 {
@@ -48,7 +48,7 @@ class DeleteRecordTest extends TestBase
         ];
         $client = new AwsRoute53($fakeAwsRoute53Api);
         $client->deleteRecord($zoneId, $params["name"], $params["type"], $params["value"], $params["ttl"]);
-        
+
         $apiCalls = $fakeAwsRoute53Api->stats["apiCalls"];
         $this->assertEquals(1, count($apiCalls));
     }
