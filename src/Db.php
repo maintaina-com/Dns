@@ -8,8 +8,10 @@
  */
 namespace Horde\Dns;
 
+use Exception;
 use Horde\Dns\Db\ZoneRepo;
 use Horde\Dns\Db\RecordRepo;
+use Horde_Rdo_Query;
 
 class Db implements Client
 {
@@ -194,7 +196,26 @@ class Db implements Client
                 'length'  => null
             ]
         );
-        // TODO: Wrap exceptions
+    }
+
+    public function createRecords(string $zoneId, array $records, string $comment = '')
+    {
+        foreach($records as $record) {
+            $dbRecord = $this->getSingleRecord($record->getName(), $zoneId);
+            if ($dbRecord) {
+                throw new Exception("record '{$record->getName()}' already exists in zone {$zoneId}");
+            }
+            $this->recordRepo->create([
+                'zone' => $zoneId,
+                'name' => $record->getName(),
+                'ttl' => $record->getTtl(),
+                'class' => 'IN',
+                'type' => $record->getType(),
+                'special' => null,
+                'rdata'   => $record->getValue(),
+                'length'  => null
+            ]);
+        }
     }
 
     /**
@@ -218,6 +239,15 @@ class Db implements Client
         if ($found) {
             $found->delete();
         }
+    }
+
+    public function deleteRecords(string $zoneId, array $records, string $comment = '')
+    {
+        $names = array_map(fn($r) => $r->getName(), $records);
+        $q = new Horde_Rdo_Query($this->recordRepo);
+        $q->addTest('zone', '=', $zoneId)
+            ->addTest('name', 'IN', $names);
+        $this->recordRepo->delete($q);
     }
 
     /**
@@ -253,5 +283,21 @@ class Db implements Client
             return;
         }
         $this->createRecord($zoneId, $name, $type, $value, $ttl, $comment);
+    }
+
+    public function updateRecords(string $zoneId, array $records, string $comment = '')
+    {
+        foreach($records as $record) {
+            $dbRecord = $this->getSingleRecord($record->getName(), $zoneId);
+            if ($dbRecord) {
+                $dbRecord->type = $record->getType();
+                $dbRecord->rdata = $record->getValue();
+                $dbRecord->ttl = $record->getTtl();
+                $dbRecord->comment = $record->getComment();
+                $dbRecord->save();
+            } else {
+                $this->createRecord($zoneId, $record->getName(), $record->getType(), $record->getValue(), $record->getComment());
+            }
+        }
     }
 }

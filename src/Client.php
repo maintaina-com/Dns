@@ -8,6 +8,8 @@
  */
 namespace Horde\Dns;
 
+use Aws\Result;
+
 interface Client
 {
     /**
@@ -91,6 +93,13 @@ interface Client
     public function createRecord(string $zoneId, string $name, string $type, $value, int $ttl = 600, string $comment = '');
 
     /**
+     * Delete multiple DNS records in an existing zone
+     * 
+     * @param Array<Record> $records an array of records to delete
+     */
+    public function createRecords(string $zoneId, array $records, string $comment = '');
+
+    /**
      * Delete a single DNS record in an existing zone
      *
      * @PHP8: Refactor for named arguments and more optionals
@@ -102,6 +111,13 @@ interface Client
      * @param string $comment Set a comment for the operation
      */
     public function deleteRecord(string $zoneId, string $name, string $type, string $comment = '');
+
+    /**
+     * Delete multiple DNS records in an existing zone
+     * 
+     * @param Array<Record> $records an array of records to delete
+     */
+    public function deleteRecords(string $zoneId, array $records, string $comment = '');
 
     /**
      * Update or create if missing a single DNS record
@@ -120,4 +136,11 @@ interface Client
      * @throws TBD
      */
     public function updateRecord(string $zoneId, string $name, string $type, $value, int $ttl = 600, string $comment = '');
+
+    /**
+     * Update multiple DNS records in an existing zone
+     * 
+     * @param Array<Record> $records an array of records to delete
+     */
+    public function updateRecords(string $zoneId, array $records, string $comment = '');
 }
