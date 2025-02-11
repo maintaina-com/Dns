@@ -218,6 +218,21 @@ class Composite implements Client
         }
     }
 
+    public function createRecords(string $zoneId, array $records, string $comment = '')
+    {
+        if ($this->methodIsBlacklisted(__FUNCTION__)) {
+            return;
+        }
+
+        foreach ($this->clients as $client) {
+            try {
+                $client->createRecords($zoneId, $records, $comment);
+            } catch (\Exception $e) {
+                // TODO: LOG
+            }
+        }
+    }
+
     /**
      * Delete a single DNS record in an existing zone
      *
@@ -238,6 +253,21 @@ class Composite implements Client
         foreach ($this->clients as $client) {
             try {
                 $client->deleteRecord($zoneId, $name, $type, $comment);
+            } catch (\Exception $e) {
+                // TODO: LOG
+            }
+        }
+    }
+
+    public function deleteRecords(string $zoneId, array $records, string $comment = '')
+    {
+        if ($this->methodIsBlacklisted(__FUNCTION__)) {
+            return;
+        }
+
+        foreach ($this->clients as $client) {
+            try {
+                $client->deleteRecords($zoneId, $records, $comment);
             } catch (\Exception $e) {
                 // TODO: LOG
             }
@@ -269,6 +299,21 @@ class Composite implements Client
         foreach ($this->clients as $client) {
             try {
                 $client->updateRecord($zoneId, $name, $type, $value, $ttl, $comment);
+            } catch (\Exception $e) {
+                // TODO: LOG
+            }
+        }
+    }
+
+    public function updateRecords(string $zoneId, array $records, string $comment = '')
+    {
+        if ($this->methodIsBlacklisted(__FUNCTION__)) {
+            return;
+        }
+
+        foreach ($this->clients as $client) {
+            try {
+                $client->updateRecords($zoneId, $records, $comment);
             } catch (\Exception $e) {
                 // TODO: LOG
             }

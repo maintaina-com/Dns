@@ -6,6 +6,9 @@ on:
   workflow_dispatch:
     branches:
       - FRAMEWORK_6_0
+env:
+  components: "/home/runner/.composer/web/components/bin/horde-components -c /home/runner/.composer/web/components/config/maintaina.conf.dist"
+  COMPOSER_ALLOW_SUPERUSER: 1
 
 jobs:
   run:
@@ -13,7 +16,7 @@ jobs:
     strategy:
       matrix:
         operating-system: ['ubuntu-20.04']
-        php-versions: ['7.4']
+        php-versions: ['8.1']
     steps:
     - name: Setup git
       run:  |
@@ -22,6 +25,8 @@ jobs:
           git config --global user.email "ci-job@maintaina.com"
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
@@ -35,27 +40,26 @@ jobs:
           composer global config repositories.0 composer https://horde-satis.maintaina.com
           composer global config minimum-stability dev
           composer config --no-plugins --global allow-plugins.horde/horde-installer-plugin true
+          composer global require horde/horde-installer-plugin "2.3.0"
           composer global require horde/components "dev-FRAMEWORK_6_0"
-          alias horde-components="~/.config/composer/web/components/bin/horde-components"
     - name: write changelog
       run: |
           entries_amount=0; max_entries=100
           PATTERN="^\[.*\] .*"
 
           for commit in $(git rev-list FRAMEWORK_6_0)
-          do  
+          do
             msg=$(git log --format=%B -n 1 $commit | head -n 1)
             if [ $entries_amount -gt $max_entries ]; then break; fi
             if [[ $msg == 'Released'* ]]; then break; fi
             if [[ $msg == 'Development mode for'* ]]; then break; fi
             if [[ $msg =~ $PATTERN ]]; then
-              horde-components -c doc/components.conf changed "$msg"
+              $components changed "$msg"
               let "entries_amount+=1"
             fi
           done
     - name: make release and push
       run: |
-          horde-components -c doc/components.conf release for maintaina
-          git commit --amend -m "$(git log -1 --pretty=%B) [ci skip]"
+          $components release for maintaina
           git push
           git push origin --tags

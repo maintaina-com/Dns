@@ -9,7 +9,9 @@
 
 namespace Horde\Dns;
 
+use Aws\Result;
 use Aws\Route53\Route53Client;
+use Exception;
 
 class AwsRoute53 implements Client
 {
@@ -204,6 +206,7 @@ class AwsRoute53 implements Client
 
         $query = ["HostedZoneId" => $zoneId];
         foreach ($this->getResourceRecordSetsIterator($query, $maxResults) as $recordSets) {
+            usleep(300000);
             $newRecords = $this->convertRecordSetsToRecords($recordSets);
             foreach ($newRecords as $record) {
                 $records[] = $record;
@@ -290,6 +293,53 @@ class AwsRoute53 implements Client
     }
 
     /**
+     * @param string $zoneId The zone id
+     * @param string $action one of 'DELETE', 'CREATE' or 'UPSERT'
+     * @param Array<Record> $records 
+     * @param string $comment optional comment of the these change batches
+     * @return Array<Result>
+     */
+    private function doActionForRecords(string $zoneId, string $action, array $records, string $comment = ''): array
+    {
+        if (!in_array($action, ['DELETE', 'CREATE', 'UPSERT'])) {
+            throw new Exception("invalid action '$action'");
+        }
+        $changes = [];
+        foreach($records as $record) {
+            $changes[] = [
+                'Action' => $action,
+                'ResourceRecordSet' => [
+                    'Name' => $record->getName(),
+                    'ResourceRecords' => [
+                        [
+                            'Value' => $record->getValue(),
+                        ],
+                    ],
+                    'TTL' => $record->getTtl(),
+                    'Type' => $record->getType(),
+                ],
+            ];
+        }
+        $maxRecordsPerRecordSet = 400;
+        $batchQueries = [];
+        $changesChunks = array_chunk($changes, $maxRecordsPerRecordSet);
+        foreach($changesChunks as $changesChunk) {
+            $batchQueries[] = [
+                'ChangeBatch' => [
+                    'Changes' => $changesChunk,
+                    'Comment' => $comment,
+                ],
+                'HostedZoneId' => $zoneId,
+            ];
+        }
+        $results = [];
+        foreach($batchQueries as $batchQuery) {
+            $results[] = $this->sdk->changeResourceRecordSets($batchQuery);
+        }
+        return $results;
+    }
+
+    /**
      * Create a single DNS record in an existing zone
      *
      * @PHP8: Refactor for named arguments and more optionals
@@ -319,12 +369,20 @@ class AwsRoute53 implements Client
             "comment" => $comment,
             "zoneId" => $zoneId,
         ]);
-        try {
-            $result = $this->sdk->changeResourceRecordSets($query);
-        } catch (\Aws\Exception\AwsException $e) {
-            // TODO: Log
-            return;
+        $result = $this->sdk->changeResourceRecordSets($query);
+    }
+
+    /**
+     * Delete multiple DNS records in an existing zone
+     * 
+     * @param Array<Record> $records an array of records to delete
+     */
+    public function createRecords(string $zoneId, array $records, string $comment = '')
+    {
+        if ($this->methodIsBlacklisted(__FUNCTION__)) {
+            return null;
         }
+        return $this->doActionForRecords($zoneId, 'CREATE', $records, $comment);
     }
 
     /**
@@ -360,6 +418,19 @@ class AwsRoute53 implements Client
             "zoneId" => $zoneId,
         ]);
         $result = $this->sdk->changeResourceRecordSets($query);
+    }
+
+    /**
+     * Delete multiple DNS records in an existing zone
+     * 
+     * @param Array<Record> $records an array of records to delete
+     */
+    public function deleteRecords(string $zoneId, array $records, string $comment = '')
+    {
+        if ($this->methodIsBlacklisted(__FUNCTION__)) {
+            return null;
+        }
+        return $this->doActionForRecords($zoneId, 'DELETE', $records, $comment);
     }
 
     /**
@@ -407,5 +478,18 @@ class AwsRoute53 implements Client
             "zoneId" => $zoneId,
         ]);
         $result = $this->sdk->changeResourceRecordSets($query);
+    }
+
+    /**
+     * Update multiple DNS records in an existing zone
+     * 
+     * @param Array<Record> $records an array of records to delete
+     */
+    public function updateRecords(string $zoneId, array $records, string $comment = '')
+    {
+        if ($this->methodIsBlacklisted(__FUNCTION__)) {
+            return null;
+        }
+        return $this->doActionForRecords($zoneId, 'UPSERT', $records, $comment);
     }
 }
