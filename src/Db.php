@@ -243,11 +243,16 @@ class Db implements Client
 
     public function deleteRecords(string $zoneId, array $records, string $comment = '')
     {
+        if (!$records) {
+            return;
+        }
         $names = array_map(fn($r) => $r->getName(), $records);
         $q = new Horde_Rdo_Query($this->recordRepo);
         $q->addTest('zone', '=', $zoneId)
             ->addTest('name', 'IN', $names);
-        $this->recordRepo->delete($q);
+        foreach($this->recordRepo->find($q) as $record) {
+            $record->delete();
+        }
     }
 
     /**
