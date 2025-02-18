@@ -301,7 +301,7 @@ class Db implements Client
                 $dbRecord->comment = $record->getComment();
                 $dbRecord->save();
             } else {
-                $this->createRecord($zoneId, $record->getName(), $record->getType(), $record->getValue(), $record->getComment());
+                $this->createRecord($zoneId, $record->getName(), $record->getType(), $record->getValue(), $record->getTtl(), $record->getComment());
             }
         }
     }
