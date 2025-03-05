@@ -18,6 +18,7 @@ conf.php
 /vendor
 /composer.lock
 /web
+/var
 /.phpunit.cache
 .phpunit.results.cache
 .php-cs-fixer.cache

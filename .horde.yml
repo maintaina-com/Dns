@@ -31,6 +31,7 @@ dependencies:
   required:
     php: ^7 || ^8
     composer:
+      horde/core: ^3
       horde/rdo: ^3
       aws/aws-sdk-php: ^3
   dev:

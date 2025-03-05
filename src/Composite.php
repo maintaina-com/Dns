@@ -26,6 +26,8 @@
  */
 namespace Horde\Dns;
 
+use Horde;
+
 class Composite implements Client
 {
     use HasMethodBlacklistTrait;
@@ -182,7 +184,7 @@ class Composite implements Client
                     return $record;
                 }
             } catch (\Exception $e) {
-                // TODO: LOG
+                Horde::log($e);
             }
         }
         return null;
@@ -213,7 +215,7 @@ class Composite implements Client
             try {
                 $client->createRecord($zoneId, $name, $type, $value, $ttl, $comment);
             } catch (\Exception $e) {
-                // TODO: LOG
+                Horde::log($e);
             }
         }
     }
@@ -228,7 +230,7 @@ class Composite implements Client
             try {
                 $client->createRecords($zoneId, $records, $comment);
             } catch (\Exception $e) {
-                // TODO: LOG
+                Horde::log($e);
             }
         }
     }
@@ -254,7 +256,7 @@ class Composite implements Client
             try {
                 $client->deleteRecord($zoneId, $name, $type, $comment);
             } catch (\Exception $e) {
-                // TODO: LOG
+                Horde::log($e);
             }
         }
     }
@@ -269,7 +271,7 @@ class Composite implements Client
             try {
                 $client->deleteRecords($zoneId, $records, $comment);
             } catch (\Exception $e) {
-                // TODO: LOG
+                Horde::log($e);
             }
         }
     }
@@ -300,7 +302,7 @@ class Composite implements Client
             try {
                 $client->updateRecord($zoneId, $name, $type, $value, $ttl, $comment);
             } catch (\Exception $e) {
-                // TODO: LOG
+                Horde::log($e);
             }
         }
     }
@@ -315,7 +317,7 @@ class Composite implements Client
             try {
                 $client->updateRecords($zoneId, $records, $comment);
             } catch (\Exception $e) {
-                // TODO: LOG
+                Horde::log($e);
             }
         }
     }
